@@ -1,0 +1,20 @@
+{
+  "name": "pdf_page_annotator",
+  "version": "1.0.0",
+  "description": "Adds Page XXX to each PDF page",
+  "main": "index.ts",
+  "scripts": {
+    "start": "ts-node index.ts"
+  },
+  "author": "NicoAiko <nicoaiko@nicoaiko.de>",
+  "license": "ISC",
+  "dependencies": {
+    "pdf-lib": "^1.16.0",
+    "yargs": "^17.2.1"
+  },
+  "devDependencies": {
+    "@types/yargs": "^17.0.3",
+    "ts-node": "^10.3.0",
+    "typescript": "^4.4.4"
+  }
+}
