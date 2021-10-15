@@ -2,9 +2,9 @@
   "name": "pdf_page_annotator",
   "version": "1.0.0",
   "description": "Adds Page XXX to each PDF page",
-  "main": "index.ts",
+  "main": "src/index.ts",
   "scripts": {
-    "start": "ts-node index.ts",
+    "start": "ts-node .",
     "lint": "eslint . --ext .ts"
   },
   "author": "NicoAiko <nicoaiko@nicoaiko.de>",
