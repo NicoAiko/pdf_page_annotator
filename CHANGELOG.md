@@ -3,8 +3,13 @@
 ## 1.0.1
 *To be released...*
 
+### Features
+- Add format change option (default: "Page %s")
+- Add leading zero change option (default: 2)
+
 ### Development changes
 - Code Linting added (ESLint and Prettier)
+- Argument validation and parsing into separated files
 
 ---
 

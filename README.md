@@ -2,6 +2,8 @@
 
 This program solely puts a "Page XXX" (XXX is replaced with the page number in question) in the lower right corner of each PDF page.
 
+To change the format of what should be written, see the applications help text.
+
 # How to use
 
 You must have Node.JS installed, recommended is v16!
@@ -12,6 +14,6 @@ You must have Node.JS installed, recommended is v16!
 
 
 ## General usage
-`npx ts-node index.ts` is the default command to address the program.
+`npx ts-node src/index.ts` is the default command to address the program.
 
-How to use the options is explained in the options help text when using the command above or by using `npx ts-node index.ts -h`
+How to use the options is explained in the options help text when using the command above or by using `npx ts-node src/index.ts -h`
