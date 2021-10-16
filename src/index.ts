@@ -1,10 +1,13 @@
 import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 import FS from 'fs';
-import { getArgs } from './getArgs';
+import util from 'util';
+import { argsValidator, isInputOutputValid, getArgs } from './arguments';
 
 async function main() {
   const argv = await getArgs();
-  // TODO: Put validation out of getArgs
+
+  // Validate input/output files
+  isInputOutputValid(argv);
 
   console.log('Loading file...');
   const inputFile = FS.readFileSync(argv.i);
@@ -19,22 +22,17 @@ async function main() {
   const pages = doc.getPages();
   console.log(`Found ${pages.length} page${pages.length === 1 ? '' : 's'}`);
 
-  if (argv.s !== undefined && argv.s > pages.length) {
-    console.error('The start page is higher than available pages in the input PDF!');
-
-    process.exit(1);
-  }
-
-  if (argv.e !== undefined && argv.e > pages.length) {
-    console.warn('The end page is higher than available pages in the input PDF. End page offset is ignored!');
-  }
+  console.log('Validating given options...');
+  argsValidator(argv, pages.length);
 
   const startOffset = argv.s ?? 1;
   const endOffset = argv.e ?? pages.length;
   let pageIndex = 1;
   let pageNumber = 1;
 
-  console.log(`Annotating starts at page ${startOffset} and stops at page ${endOffset}.`);
+  console.log(
+    `Annotating starts at page ${startOffset} and stops at page ${endOffset}.`
+  );
 
   for (const page of pages) {
     // Outside of offset
@@ -48,7 +46,8 @@ async function main() {
     }
 
     const { width } = page.getSize();
-    const numberText = `Page ${pageNumber.toString().padStart(3, '0')}`;
+    const leadingZeroText = pageNumber.toString().padStart(argv.z + 1, '0');
+    const numberText = util.format(argv.f, leadingZeroText);
     const textWidth = helveticaFont.widthOfTextAtSize(numberText, 12);
     const textHeight = helveticaFont.heightAtSize(12);
     const x = width - 20 - textWidth;

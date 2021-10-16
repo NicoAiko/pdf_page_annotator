@@ -1,5 +1,5 @@
 import FS from 'fs';
-import { Arguments } from './getArgs';
+import { Arguments } from './IArguments';
 
 export function isInputOutputValid(argv: Arguments): void {
   if (!FS.existsSync(argv.i)) {
@@ -13,7 +13,9 @@ export function isInputOutputValid(argv: Arguments): void {
     try {
       FS.openSync(argv.o, 'r+');
     } catch (error) {
-      console.error("The output file already exists and can't currently be written to. Is it opened somewhere?");
+      console.error(
+        "The output file already exists and can't currently be written to. Is it opened somewhere?"
+      );
 
       process.exit(1);
     }
