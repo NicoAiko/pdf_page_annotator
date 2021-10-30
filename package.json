@@ -5,25 +5,35 @@
   "main": "src/index.ts",
   "scripts": {
     "start": "ts-node .",
-    "lint": "eslint . --ext .ts"
+    "prebuild": "rimraf ./dist",
+    "build": "node scripts/build.js && npm run compile",
+    "compile": "tsc src/process",
+    "lint": "eslint . --ext .ts",
+    "electron:start": "npm run compile && electron ./dist/process/index.js"
   },
   "author": "NicoAiko <nicoaiko@nicoaiko.de>",
   "license": "ISC",
   "dependencies": {
     "pdf-lib": "^1.16.0",
+    "vue": "^3.2.20",
+    "vue-router": "^4.0.12",
     "yargs": "^17.2.1"
   },
   "devDependencies": {
     "@types/yargs": "^17.0.3",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
+    "@vitejs/plugin-vue": "^1.9.4",
+    "electron": "^15.3.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-prettier": "^4.0.0",
     "prettier": "^2.4.1",
+    "rimraf": "^3.0.2",
     "ts-node": "^10.3.0",
-    "typescript": "^4.4.4"
+    "typescript": "^4.4.4",
+    "vite": "^2.6.13"
   }
 }
