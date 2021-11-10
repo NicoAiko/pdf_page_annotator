@@ -2,11 +2,17 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "lib": ["ESNext", "DOM", "DOM.Iterable"]
+    "lib": ["ESNext", "DOM"],
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "Node",
+    "useDefineForClassFields": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true
   },
   "include": [
     "src/**/*.vue",
     "src/**/*.ts",
-    "/types/**/*.d.ts"
+    "types/**/*.d.ts"
   ]
 }

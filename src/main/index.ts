@@ -1,5 +1,6 @@
 import { app, BrowserWindow } from 'electron';
-import path from 'path';
+import * as path from 'path';
+import { URL } from 'url';
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -7,7 +8,13 @@ function createWindow() {
     height: 600,
   });
 
-  win.loadFile(path.join(__dirname, '../renderer/index.html'));
+  if (process.env.NODE_ENV === 'development') {
+    const url = new URL('http://localhost:3000');
+    url.pathname = 'index.html';
+    win.loadURL(url.href);
+  } else {
+    win.loadFile(path.join(__dirname, '../dist/index.html'));
+  }
 
   win.webContents.openDevTools();
 }
