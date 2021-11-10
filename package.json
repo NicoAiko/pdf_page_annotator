@@ -4,22 +4,31 @@
   "description": "Adds Page XXX to each PDF page",
   "main": "src/index.ts",
   "scripts": {
-    "start": "ts-node .",
+    "start": "electron-forge start",
     "prebuild": "rimraf ./dist",
-    "build": "node scripts/build.js && npm run compile",
-    "compile": "tsc src/process",
+    "build": "npm run build:vite && npm run build:electron",
+    "build:vite": "node scripts/build.js",
+    "build:electron": "tsc -p src/process/tsconfig.json",
     "lint": "eslint . --ext .ts",
-    "electron:start": "npm run compile && electron ./dist/process/index.js"
+    "electron:start": "electron ./dist/process/index.js",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "author": "NicoAiko <nicoaiko@nicoaiko.de>",
   "license": "ISC",
   "dependencies": {
+    "electron-squirrel-startup": "^1.0.0",
     "pdf-lib": "^1.16.0",
     "vue": "^3.2.20",
     "vue-router": "^4.0.12",
     "yargs": "^17.2.1"
   },
   "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.61",
+    "@electron-forge/maker-deb": "^6.0.0-beta.61",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.61",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.61",
+    "@electron-forge/maker-zip": "^6.0.0-beta.61",
     "@types/yargs": "^17.0.3",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
@@ -35,5 +44,32 @@
     "ts-node": "^10.3.0",
     "typescript": "^4.4.4",
     "vite": "^2.6.13"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "pdf_page_annotator"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
   }
 }
