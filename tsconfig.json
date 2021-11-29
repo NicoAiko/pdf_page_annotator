@@ -8,6 +8,8 @@
     "types": ["node"],
     "typeRoots": ["node_modules/@types"],
     "lib": ["ESNext"],
-    "allowSyntheticDefaultImports": true
-  }
+    "allowSyntheticDefaultImports": true,
+    "outDir": "./dist"
+  },
+  "include": ["src/main/**/*.ts"]
 }
