@@ -4,26 +4,43 @@
   "description": "Adds Page XXX to each PDF page",
   "main": "src/index.ts",
   "scripts": {
+    "compile": "tsc",
+    "build": "webpack --mode production",
+    "debug": "webpack && qode --inspect ./dist/index.js",
+    "qode": "qode ./dist/window.js",
     "start": "ts-node .",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "clean": "rimraf ./dist",
+    "clcom": "npm run clean && npm run compile",
+    "pack": "nodegui-packer --pack ./dist"
   },
   "author": "NicoAiko <nicoaiko@nicoaiko.de>",
   "license": "ISC",
   "dependencies": {
-    "pdf-lib": "^1.16.0",
-    "yargs": "^17.2.1"
+    "@nodegui/nodegui": "^0.41.0",
+    "pdf-lib": "^1.17.1",
+    "yargs": "^17.3.0"
   },
   "devDependencies": {
-    "@types/yargs": "^17.0.3",
-    "@typescript-eslint/eslint-plugin": "^5.0.0",
-    "@typescript-eslint/parser": "^5.0.0",
+    "@nodegui/packer": "^1.5.0",
+    "@types/node": "^16.11.11",
+    "@types/yargs": "^17.0.7",
+    "@typescript-eslint/eslint-plugin": "^5.5.0",
+    "@typescript-eslint/parser": "^5.5.0",
+    "clean-webpack-plugin": "^4.0.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-standard": "^16.0.3",
-    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-prettier": "^4.0.0",
-    "prettier": "^2.4.1",
-    "ts-node": "^10.3.0",
-    "typescript": "^4.4.4"
+    "file-loader": "^6.2.0",
+    "native-addon-loader": "^2.0.1",
+    "prettier": "^2.5.0",
+    "rimraf": "^3.0.2",
+    "ts-loader": "^9.2.6",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.2",
+    "webpack": "^5.64.4",
+    "webpack-cli": "^4.9.1"
   }
 }

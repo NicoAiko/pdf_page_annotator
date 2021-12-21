@@ -2,3 +2,5 @@ node_modules/
 input.pdf
 output.pdf
 .vscode/
+dist/
+deploy/win32/build
