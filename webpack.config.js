@@ -1,13 +1,28 @@
+const { readdirSync } = require('fs');
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const globImporter = require('node-sass-glob-importer');
+
+let themes = {};
+readdirSync('./src/themes').forEach((value) => {
+  themes = {
+    ...themes,
+    [value.replace('.scss', '')]: `./src/themes/${value}`,
+  };
+});
 
 module.exports = {
   mode: process.NODE_ENV || 'development',
-  entry: './src',
+  entry: {
+    'index.js': './src',
+    ...themes,
+  },
   target: 'node',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'index.js',
+    filename: '[name]',
+    pathinfo: false,
   },
   module: {
     rules: [
@@ -15,6 +30,30 @@ module.exports = {
         test: /\.tsx?$/,
         use: 'ts-loader',
         exclude: /node_modules/,
+      },
+      {
+        test: /\.s?[ac]ss$/i,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              url: {
+                filter: () => false,
+              },
+            }
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sassOptions: {
+                importer: globImporter(),
+              },
+            },
+          },
+        ],
       },
       {
         test: /\.(png|jpe?g|gif|svg)$/i,
@@ -39,5 +78,10 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.jsx'],
   },
-  plugins: [new CleanWebpackPlugin()],
+  plugins: [
+    new CleanWebpackPlugin(),
+    new MiniCssExtractPlugin({
+      filename: 'themes/[name].css'
+    }),
+  ],
 };
