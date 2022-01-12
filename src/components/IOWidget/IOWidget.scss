@@ -1,0 +1,12 @@
+#IOWidget {
+  flex: 1;
+  // flex-direction: row;
+  justify-content: space-between;
+
+  // DEBUG
+  background-color: red;
+
+  & * {
+    flex: 1;
+  }
+}

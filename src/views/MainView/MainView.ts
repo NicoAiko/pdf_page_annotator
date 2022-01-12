@@ -1,32 +1,23 @@
-import {
-  Direction,
-  QBoxLayout,
-  QLabel,
-  QLineEdit,
-  QPushButton,
-  QWidget,
-} from '@nodegui/nodegui';
+import { FlexLayout, QWidget } from '@nodegui/nodegui';
+import { IOWidget } from '../../components/IOWidget/IOWidget';
 
 export class MainView extends QWidget {
+  private _ioWidget = new IOWidget();
+
   constructor() {
     super();
     this.setObjectName('MainView');
-    this.setLayout(new QBoxLayout(Direction.TopToBottom));
+    this.setLayout(new FlexLayout());
 
     this.initialize();
   }
 
   private initialize() {
-    const startPageLabel = new QLabel(this);
-    startPageLabel.setText('Start page');
+    this.layout?.addWidget(this._ioWidget);
 
-    const startPageField = new QLineEdit(this);
+    const placeholder = new QWidget();
+    placeholder.setObjectName('placeholder');
 
-    const executeAnnotation = new QPushButton(this);
-    executeAnnotation.setText('Start annotation');
-
-    this.layout?.addWidget(startPageLabel);
-    this.layout?.addWidget(startPageField);
-    this.layout?.addWidget(executeAnnotation);
+    this.layout?.addWidget(placeholder);
   }
 }
